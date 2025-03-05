@@ -49,8 +49,8 @@ export default class CheckoutsController {
 
             mode: 'payment',
             payment_method_types: ['card'],
-            success_url: `http://localhost:5173/complete/{CHECKOUT_SESSION_ID}`,
-            cancel_url: 'http://localhost:5173/',
+            success_url: `http://tropadoml.com/complete/{CHECKOUT_SESSION_ID}`,
+            cancel_url: 'http://tropadoml.com/',
 
         })
 
@@ -99,8 +99,8 @@ export default class CheckoutsController {
                 ],
                 mode: 'payment',
                 payment_method_types: ['card'],
-                success_url: `http://localhost:5173/complete/{CHECKOUT_SESSION_ID}`,
-                cancel_url: 'http://localhost:5173/',
+                success_url: `http://tropadoml.com/complete/{CHECKOUT_SESSION_ID}`,
+                cancel_url: 'http://tropadoml.com /',
 
             })
             console.log(session.url)
