@@ -100,7 +100,7 @@ export default class CheckoutsController {
                 mode: 'payment',
                 payment_method_types: ['card'],
                 success_url: `http://tropadoml.com/complete/{CHECKOUT_SESSION_ID}`,
-                cancel_url: 'http://tropadoml.com /',
+                cancel_url: 'http://tropadoml.com/',
 
             })
             console.log(session.url)
