@@ -42,23 +42,24 @@ export default class AutoupdateProvider {
     //Rotina para atualizar o status conforme tempo de pagamento
     //Rotina para teste
     // Agendar uma tarefa para rodar no primeiro dia de cada mês, à meia-noite
-    cron.schedule('*/10 * * * *', async () => {
+    cron.schedule('*/1 * * * *', async () => {
       const url = env.get('API_URL')
       const costumers = await axios.get(url!).then((response) => { return response.data })
 
       costumers.forEach(async (costumer: SerializedCostumer) => {
 
         const costumerModel = await Costumer.findOrFail(costumer.id)
-        const timeSinceLastPayment = DateTime.now().diff(DateTime.fromISO(costumer.updatedAt), 'minutes').toObject().minutes
+        const timeSinceLastPayment = DateTime.now().diff(DateTime.fromISO(costumer.updatedAt), 'days').toObject().minutes
+        console.table([costumer.name, timeSinceLastPayment])
 
-        if (costumer.status == true && costumer.plan === "trimestral" && timeSinceLastPayment! >= 3) {
+        if (costumer.status == true && costumer.plan === "trimestral" && timeSinceLastPayment! >= 90) {
 
           costumerModel.status = false
           await costumerModel.save()
 
           console.log(`O usuário: ${costumer.nickname} teve seu acesso suspenso por falta de pagamento`)
         }
-        if (costumer.status == true && costumer.plan === "mensal" && timeSinceLastPayment! >= 1) {
+        if (costumer.status == true && costumer.plan === "mensal" && timeSinceLastPayment! >= 30) {
           costumerModel.status = false
           await costumerModel.save()
 

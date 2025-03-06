@@ -6,7 +6,7 @@ import Stripe from 'stripe';
 
 
 
-const stripe = new Stripe(env.get('STRIPE_SECRET_KEY') || '');
+const stripe = new Stripe(env.get('STRIPE_PUBLIC_KEY') || '');
 
 export default class CheckoutsController {
 
