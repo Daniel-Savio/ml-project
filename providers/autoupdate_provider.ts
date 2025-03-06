@@ -49,7 +49,7 @@ export default class AutoupdateProvider {
       costumers.forEach(async (costumer: SerializedCostumer) => {
 
         const costumerModel = await Costumer.findOrFail(costumer.id)
-        const timeSinceLastPayment = DateTime.now().diff(DateTime.fromISO(costumer.updatedAt), 'days').toObject().minutes
+        const timeSinceLastPayment = DateTime.now().diff(DateTime.fromISO(costumer.updatedAt), 'days').toObject().days
         console.table([costumer.name, timeSinceLastPayment])
 
         if (costumer.status == true && costumer.plan === "trimestral" && timeSinceLastPayment! >= 90) {
