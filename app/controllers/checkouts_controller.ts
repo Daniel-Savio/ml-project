@@ -49,8 +49,8 @@ export default class CheckoutsController {
 
             mode: 'payment',
             payment_method_types: ['card'],
-            success_url: `http://tropadoml.com/complete/{CHECKOUT_SESSION_ID}`,
-            cancel_url: 'http://tropadoml.com/',
+            success_url: `http://localhost:5173/complete/{CHECKOUT_SESSION_ID}`,
+            cancel_url: 'http://localhost:5173/',
 
         })
 
@@ -59,7 +59,6 @@ export default class CheckoutsController {
         console.log(session)
         response.status(200).send(session.url)
     }
-
 
     async goldPlan({ request, response }: HttpContext) {
         const data = request.only(['nick'])
@@ -99,8 +98,8 @@ export default class CheckoutsController {
                 ],
                 mode: 'payment',
                 payment_method_types: ['card'],
-                success_url: `http://tropadoml.com/complete/{CHECKOUT_SESSION_ID}`,
-                cancel_url: 'http://tropadoml.com/',
+                success_url: `http://localhost:5173/complete/{CHECKOUT_SESSION_ID}`,
+                cancel_url: 'http://localhost:5173/',
 
             })
             console.log(session.url)
@@ -124,9 +123,12 @@ export default class CheckoutsController {
             ).send("undefined sessions")
             return
         }
+
         try {
             const session = await stripe.checkout.sessions.retrieve(sessionId)
-            const plan = session.amount_total! >= 30000 ? 'trimestral' : 'mensal'
+            console.log(session.amount_total)
+            console.log(typeof session.amount_total)
+            const plan = session.amount_total! >= 30000 ? 'mensal' : 'trimestral'
             const nickname = session.custom_fields?.find(field => field.key === 'discord_nickname')?.text?.value
             const name = session.customer_details?.name
             const email = session.customer_details?.email
@@ -144,6 +146,8 @@ export default class CheckoutsController {
                 "lastPaymentId": lastPaymentId!,
                 "status": status!
             }
+
+            console.log(newCostumer)
 
             const costumer = await Costumer.updateOrCreate({ email: email! }, newCostumer)
             console.log(costumer)
