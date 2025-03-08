@@ -276,9 +276,9 @@ export default class CheckoutsController {
             })
 
             if (customers.data.length === 0) {
-                return response.status(404).json({
+                return response.status(200).json({
                     success: false,
-                    message: 'Cliente não encontrado no Stripe'
+                    message: 'Cliente não encontrado na base de pagamentos'
                 })
             }
 

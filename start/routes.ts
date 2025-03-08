@@ -9,9 +9,13 @@
 
 import CheckoutsController from '#controllers/checkouts_controller'
 import CostumersController from '#controllers/costumers_controller'
+import { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
 
 router.get('/', [CostumersController, 'index'])
+router.get('/keep-alive', ({ response }: HttpContext) => {
+    response.status(200).send("Alive and kicking")
+})
 
 router.post('/bronze-plan', [CheckoutsController, 'bronzePlan'])
 router.post('/gold-plan', [CheckoutsController, 'goldPlan'])
