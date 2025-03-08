@@ -16,3 +16,6 @@ router.get('/', [CostumersController, 'index'])
 router.post('/bronze-plan', [CheckoutsController, 'bronzePlan'])
 router.post('/gold-plan', [CheckoutsController, 'goldPlan'])
 router.post('/add-costumer', [CheckoutsController, 'create'])
+router.post('/cancel-signature', [CheckoutsController, 'cancel'])
+
+router.post('/webhook', [CheckoutsController, 'webhook'])
